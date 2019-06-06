@@ -1,5 +1,5 @@
 <template>
-  <div class="topic">
+  <div v-bind:class="classObject">
     <h1>Topic component {{ name }}</h1>
   </div>
 </template>
@@ -12,17 +12,34 @@ export default {
   },
   data() {
     return {
-      name: "Markovitz"
+      name: "Markovitz",
+      isActive: true,
+      //error: null
+      error: {
+        type: "fatal"
+      }
     };
   },
-  style: {
-    color: "#aabbcc"
+  computed: {
+    classObject: function() {
+      return {
+        active: this.isActive && !this.error,
+        "text-danger": this.error && this.error.type === "fatal"
+      };
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.active {
+  text-decoration: underline;
+}
+.text-danger {
+  color: red;
+}
+
 h3 {
   margin: 40px 0 0;
 }
