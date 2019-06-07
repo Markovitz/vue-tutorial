@@ -1,6 +1,9 @@
 <template>
   <div v-bind:class="classObject">
     <h1>Topic component {{ name }}</h1>
+    <label for="error">Error Type:</label>
+    <input name="error" id="error" v-model="error.type">
+    <button @click="searchElement">Search</button>
   </div>
 </template>
 
@@ -14,7 +17,6 @@ export default {
     return {
       name: "Markovitz",
       isActive: true,
-      //error: null
       error: {
         type: "fatal"
       }
@@ -23,9 +25,14 @@ export default {
   computed: {
     classObject: function() {
       return {
-        active: this.isActive && !this.error,
+        active: this.isActive && (!this.error || this.error.type === "warning"),
         "text-danger": this.error && this.error.type === "fatal"
       };
+    }
+  },
+  methods: {
+    searchElement() {
+      alert("Searching...");
     }
   }
 };
